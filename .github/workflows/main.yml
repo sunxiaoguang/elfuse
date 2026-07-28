@@ -53,10 +53,10 @@ jobs:
       LINT_PKGS: clang-format-22 cppcheck shellcheck
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: Cache apt packages
-        uses: actions/cache@v5
+        uses: actions/cache@a7833574556fa59680c1b7cb190c1735db73ebf0 # v5.0.0
         with:
           path: ~/apt-cache
           key: apt-${{ runner.os }}-${{ env.LINT_PKGS }}
@@ -126,11 +126,11 @@ jobs:
       BREW_PKGS: binutils
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: Cache Homebrew downloads
         # No restore-keys: a partial match would mask upstream regressions.
-        uses: actions/cache@v5
+        uses: actions/cache@a7833574556fa59680c1b7cb190c1735db73ebf0 # v5.0.0
         with:
           path: ~/Library/Caches/Homebrew/downloads
           key: brew-${{ runner.os }}-${{ runner.arch }}-${{ env.BREW_PKGS }}
@@ -162,7 +162,7 @@ jobs:
 
       - name: Upload elfuse binary
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: elfuse-${{ runner.os }}-${{ runner.arch }}
           path: build/elfuse
@@ -186,10 +186,10 @@ jobs:
       CLANG_TIDY: /opt/homebrew/opt/llvm/bin/clang-tidy
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: Cache Homebrew downloads
-        uses: actions/cache@v5
+        uses: actions/cache@a7833574556fa59680c1b7cb190c1735db73ebf0 # v5.0.0
         with:
           path: ~/Library/Caches/Homebrew/downloads
           key: brew-${{ runner.os }}-${{ runner.arch }}-${{ env.BREW_PKGS }}
@@ -225,10 +225,10 @@ jobs:
       LLVM_BIN: /opt/homebrew/opt/llvm/bin
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: Cache Homebrew downloads
-        uses: actions/cache@v5
+        uses: actions/cache@a7833574556fa59680c1b7cb190c1735db73ebf0 # v5.0.0
         with:
           path: ~/Library/Caches/Homebrew/downloads
           key: brew-${{ runner.os }}-${{ runner.arch }}-${{ env.BREW_PKGS }}
@@ -254,7 +254,7 @@ jobs:
 
       - name: Upload scan-build report
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: scan-build-${{ runner.os }}-${{ runner.arch }}
           path: build/scan-build
@@ -280,10 +280,10 @@ jobs:
       BREW_PKGS: binutils
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: Cache Homebrew downloads
-        uses: actions/cache@v5
+        uses: actions/cache@a7833574556fa59680c1b7cb190c1735db73ebf0 # v5.0.0
         with:
           path: ~/Library/Caches/Homebrew/downloads
           key: brew-${{ runner.os }}-${{ runner.arch }}-${{ env.BREW_PKGS }}
@@ -296,9 +296,8 @@ jobs:
           "$GNU_OBJCOPY" --version | head -1
 
       - name: Setup Infer
-        # infer_version pins the Infer binary; the action itself tracks the v1
-        # tag.
-        uses: srz-zumix/setup-infer@v1
+        # Both the action and the Infer binary are pinned.
+        uses: srz-zumix/setup-infer@530856effeae228d1f3c8251c91ea8348d9480ee # v1.1.1
         with:
           infer_version: v1.3.0
 
@@ -327,7 +326,7 @@ jobs:
 
       - name: Upload Infer report
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: infer-${{ runner.os }}-${{ runner.arch }}
           path: infer-out/report.txt
@@ -465,7 +464,7 @@ jobs:
           fi
 
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: Restore cached test fixtures
         # Only the release leg needs fixtures: the sanitizer legs run the
@@ -501,7 +500,7 @@ jobs:
           test "$(uname -m)" = "arm64"
 
       - name: Cache Homebrew downloads
-        uses: actions/cache@v5
+        uses: actions/cache@a7833574556fa59680c1b7cb190c1735db73ebf0 # v5.0.0
         with:
           path: ~/Library/Caches/Homebrew/downloads
           key: brew-runtime-${{ runner.os }}-${{ runner.arch }}-${{ env.BREW_PKGS }}
@@ -587,7 +586,7 @@ jobs:
 
       - name: Upload runtime binary
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: elfuse-runtime-${{ matrix.sanitizer }}-${{ runner.os }}-${{ runner.arch }}
           path: build/elfuse
